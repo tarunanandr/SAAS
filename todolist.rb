@@ -33,19 +33,17 @@ class Todo
 
   def to_displayable_string
     # FILL YOUR CODE HERE
-    if @due_date == Date.today
-      if @completed == true
-        return "[X] #{@text}"
-      else
-        return "[ ] #{@text}"
-      end
+    if due_today?
+      display_date = ""
     else
-      if @completed == true
-        return "[X] #{@text} #{@due_date}"
-      else
-        return "[ ] #{@text} #{@due_date}"
-      end
+      display_date = @due_date
     end
+    if @completed == true
+      display_status = "[X]"
+    else
+      display_status = "[ ]"
+    end
+  return "#{display_status} #{@text} #{display_date}"
   end
 end
 
@@ -78,10 +76,7 @@ class TodosList
 
   def to_displayable_list
     # FILL YOUR CODE HERE
-    todo_list=[]
-    @todos.each do |todo|
-      todo_list<<(todo.to_displayable_string)
-    end
+    todo_list=@todos.map {|todo| todo.to_displayable_string}
     return todo_list.join("\n")
   end
 end
